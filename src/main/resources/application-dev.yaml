@@ -1,0 +1,80 @@
+
+# ============================================================
+# Database Configuration
+# ============================================================
+spring:
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5434}/${DB_NAME:docmind}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASSWORD:password}
+
+  # ==========================================================
+  # JPA Configuration
+  # ==========================================================
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    open-in-view: false
+
+  # ==========================================================
+  # AI Configuration
+  # ==========================================================
+  ai:
+    google:
+      genai:
+        api-key: ${GENAI_API_KEY}
+        chat:
+          options:
+            model: ${GENAI_CHAT_MODEL:gemini-3.5-flash-lite}
+            temperature: 0.2
+        embedding:
+          api-key: ${GENAI_API_KEY}
+          text:
+            model: ${GENAI_EMBEDDING_MODEL:text-embedding-004}
+            dimensions: 768
+
+    model:
+      embedding:
+        text: google-genai
+
+    # ========================================================
+    # PGVector Configuration
+    # ========================================================
+    vectorstore:
+      pgvector:
+        index-type: HNSW
+        distance-type: COSINE_DISTANCE
+        dimensions: 768
+        table-name: vector_store
+        schema-name: public
+        initialize-schema: true
+
+  # ==========================================================
+  # File Upload Configuration
+  # ==========================================================
+  servlet:
+    multipart:
+      max-file-size: 25MB
+      max-request-size: 50MB
+
+# ============================================================
+# Application Configuration
+# ============================================================
+app:
+  rag:
+    chunk-size: 600
+    chunk-overlap: 100
+    top-k: 5
+    similarity-threshold: 0.0
+
+# ============================================================
+# CORS Configuration
+# ============================================================
+cors:
+  allowed-origins: "*"
+  allowed-methods: GET,POST,PUT,OPTIONS,DELETE
+  allowed-headers: "*"
