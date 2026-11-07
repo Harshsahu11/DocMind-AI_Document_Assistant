@@ -3,7 +3,6 @@ package com.detrox.docmind.service;
 
 import com.detrox.docmind.config.AppProperties;
 import com.detrox.docmind.dto.*;
-import com.substring.docmind.dto.*;
 import com.detrox.docmind.entity.Conversation;
 import com.detrox.docmind.entity.User;
 import com.detrox.docmind.repository.ConversationRepository;
